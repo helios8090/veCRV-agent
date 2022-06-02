@@ -9,8 +9,6 @@ import "hardhat-gas-reporter";
 import "hardhat-contract-sizer";
 import config from "./.config.json";
 
-import "./src/tasks/transferOwnership";
-
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */

@@ -3,6 +3,8 @@
 pragma solidity ^0.8.13;
 
 interface IFeeDistributor {
+  function is_killed() external view returns (bool);
+
   function start_time() external view returns (uint256);
 
   function time_cursor() external view returns (uint256);

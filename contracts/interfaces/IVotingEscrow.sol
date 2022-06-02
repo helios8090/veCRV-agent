@@ -2,7 +2,20 @@
 
 pragma solidity ^0.8.13;
 
-interface VotingEscrow {
+interface IVotingEscrow {
+  // Voting escrow to have time-weighted votes
+  // Votes have a weight depending on time, so that users are committed
+  // to the future of (whatever they are voting for).
+  // The weight in this implementation is linear, and lock cannot be more than maxtime:
+  // w ^
+  // 1 +        /
+  //   |      /
+  //   |    /
+  //   |  /
+  //   |/
+  // 0 +--------+------> time
+  //       maxtime (4 years?)
+
   struct Point {
     int128 bias;
     int128 slope; // # -dweight / dt
@@ -10,11 +23,11 @@ interface VotingEscrow {
     uint256 blk; // block
   }
 
-  function user_point_epoch(uint256 tokenId) external view returns (uint256);
+  function user_point_epoch(address addr) external view returns (uint256);
 
   function epoch() external view returns (uint256);
 
-  function user_point_history(uint256 tokenId, uint256 loc)
+  function user_point_history(address addr, uint256 loc)
     external
     view
     returns (Point memory);
@@ -22,10 +35,4 @@ interface VotingEscrow {
   function point_history(uint256 loc) external view returns (Point memory);
 
   function checkpoint() external;
-
-  function deposit_for(uint256 tokenId, uint256 value) external;
-
-  function token() external view returns (address);
-
-  function balanceOf(address account) external view returns (uint256);
 }
