@@ -1,0 +1,11 @@
+node_modules
+
+#Hardhat files
+cache
+artifacts
+abi
+.env
+.config.json
+unknown*
+rinkeby.json
+typechain-types
