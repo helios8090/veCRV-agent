@@ -17,8 +17,8 @@ interface IVotingEscrow {
   //       maxtime (4 years?)
 
   struct Point {
-    int128 bias;
-    int128 slope; // # -dweight / dt
+    uint256 bias;
+    uint256 slope; // # -dweight / dt
     uint256 ts;
     uint256 blk; // block
   }

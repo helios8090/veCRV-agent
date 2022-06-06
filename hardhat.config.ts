@@ -36,7 +36,7 @@ const hardhatConfig: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        blockNumber: 12786615,
+        blockNumber: 14914190,
         url:
           process.env.MAINNET_RPC_ENDPOINT ||
           `https://eth-mainnet.alchemyapi.io/v2/${config.alchemyKey}`,
