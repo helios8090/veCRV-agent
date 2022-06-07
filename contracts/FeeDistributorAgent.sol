@@ -7,8 +7,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./interfaces/IVotingEscrow.sol";
 import "./interfaces/IFeeDistributor.sol";
 
-import "hardhat/console.sol";
-
 contract FeeDistributorAgent is Initializable, OwnableUpgradeable {
   uint256 public constant WEEK = 7 * 86400;
   /**
@@ -56,7 +54,7 @@ contract FeeDistributorAgent is Initializable, OwnableUpgradeable {
   }
 
   function claimable(address account) external view returns (uint256) {
-    uint256 last_token_time = feeDistributor.last_token_time();
+    uint256 last_token_time = (feeDistributor.last_token_time() / WEEK) * WEEK;
     uint256 user_epoch = 0;
     uint256 to_distribute = 0;
     uint256 max_user_epoch = ve.user_point_epoch(account);
@@ -83,7 +81,6 @@ contract FeeDistributorAgent is Initializable, OwnableUpgradeable {
     if (week_cursor == 0) {
       week_cursor = ((user_point.ts + WEEK - 1) / WEEK) * WEEK;
     }
-
     if (week_cursor >= last_token_time) return 0;
 
     if (week_cursor < feeDistributor.start_time()) {
